@@ -8,6 +8,7 @@ url = "http://192.168.0.2:8080/video"
 
 cap = cv2.VideoCapture(url)
 
+# 프레임 사이즈 출력
 # frame_size = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
 #               int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
 # print(frame_size)
@@ -19,7 +20,8 @@ while True:
         print('not ret')
         break
     
-    frame = cv2.resize(frame, (480, 270))
+    # opencv 창 크기 조정
+    frame = cv2.resize(frame, (720, 480))
     
     cv2.imshow('frame', frame)
     
