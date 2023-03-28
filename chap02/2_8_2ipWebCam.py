@@ -21,7 +21,7 @@ while True:
     # OpenCV 창으로 출력
     cv2.imshow('IpWebCam', frame)
     
-    key = cv2.waitKey(50)
+    key = cv2.waitKey(25)
     
     if key == 27:
         break
