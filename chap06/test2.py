@@ -1,10 +1,15 @@
 # result4 까지 맞음
+# 마지막 부분은 여기 참고해서 해보기
+# https://yeoeun-ji.tistory.com/13
+# https://theailearner.com/2019/01/26/power-law-gamma-transformations/
+# https://hoonney.tistory.com/5
+
 
 import cv2
 import numpy as np
 
 # 이미지 불러오기
-img = cv2.imread('c:/data/lena.jpg', cv2.IMREAD_GRAYSCALE)
+img = cv2.imread('c:/data/bone_test.png', cv2.IMREAD_GRAYSCALE)
 blur_g = cv2.GaussianBlur(img, ksize=(3, 3), sigmaX=1.0)
 
 # 라플라시안 필터 적용
@@ -32,6 +37,11 @@ result3 = cv2.addWeighted(img, 1.0, result2, 0.5, 0)
 
 # 23.04.05현재 result3 까지 맞게 함
 # result4 / result3 이미지를 받아서 어두운 부분을 조금 밝게 하도록 조정해보기
+gamma = 0.8
+result4 = result3.astype(np.float)
+result4 = ((result4 / 255) ** (1 / gamma)) * 255
+result4 = result4.astype(np.uint8)
+# result4 = np.array(255*(result3/255)**gamma,dtype='uint8') # 명도 조절
 
 # 결과 출력
 cv2.imshow('src', img)
@@ -41,6 +51,6 @@ cv2.imshow('sobel', sobel)
 cv2.imshow('result1', result)
 cv2.imshow('Result2', result2)
 cv2.imshow('result3', result3)
-# cv2.imshow('result4', result4)
+cv2.imshow('result4', result4)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
