@@ -61,12 +61,13 @@ mag = cv2.magnitude(sobelx, sobely) # 2D 백터의 크기 계산
 # mag2 = cv2.magnitude(sobelx2, sobely2)
 sobel = cv2.normalize(mag, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U) # 정규화
 # sobel2 = cv2.normalize(mag2, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-# cv2.imshow('d', sobel)
+cv2.imshow('d', sobel)
 # cv2.imshow('d2', sobel2)
 
 # e 소벨 필터 적용된 이미지를 평균 블러 처리, 5x5
 # opencv 함수 이용
 sobel_blur = cv2.blur(sobel, ksize=(5, 5))
+cv2.imshow('e', sobel_blur)
 
 # 직접 구현
 avg_kernel = np.ones((5,5),np.float32)/25
@@ -96,6 +97,8 @@ result = np.array(255*(sharp/255)**y[1], dtype='uint8')
 img_cal = cv2.calcHist(images=[img], channels=[0], mask=None, histSize=[64], ranges=[0, 256])
 result_cal = cv2.calcHist(images=[result], channels=[0], mask=None, histSize=[64], ranges=[0, 256])
 
+# 히스토그램 평활화
+# 필터를 이용해 개선한 영상과 어떤 차이가 있는지 비교하기 위해서 사용함
 hist = cv2.equalizeHist(img)
 hist_cal = cv2.calcHist(images=[hist], channels=[0], mask=None, histSize=[64], ranges=[0, 256])
 
@@ -108,7 +111,6 @@ ax[0].plot(img_cal, color='r')
 ax[1].plot(hist_cal, color='b') 
 ax[2].plot(result_cal, color='g') 
 plt.show()
-
 
 cv2.waitKey()
 cv2.destroyAllWindows()
