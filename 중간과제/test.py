@@ -5,7 +5,6 @@ from matplotlib import pyplot as plt
 # a 
 # 원본 이미지 불러오기
 # img = cv2.imread('c:/data/lena.jpg', cv2.IMREAD_GRAYSCALE) # lena 사진
-# img = cv2.imread('c:/data/bone_test.png', cv2.IMREAD_GRAYSCALE)
 img = cv2.imread('c:/data/moon2.jpg', cv2.IMREAD_GRAYSCALE) # 달 사진
 # img = cv2.resize(img, (350, 350)) # 사진 크기 조절
 
@@ -99,16 +98,17 @@ result_cal = cv2.calcHist(images=[result], channels=[0], mask=None, histSize=[64
 
 # 히스토그램 평활화
 # 필터를 이용해 개선한 영상과 어떤 차이가 있는지 비교하기 위해서 사용함
+# 칼라이미지를 사용할 경우 주석처리
 hist = cv2.equalizeHist(img)
 hist_cal = cv2.calcHist(images=[hist], channels=[0], mask=None, histSize=[64], ranges=[0, 256])
 
-cv2.imshow('equalizeHist(a)', hist )
+cv2.imshow('equalizeHist(a)', hist ) # 칼라 이미지일 경우 주석처리
 cv2.imshow('h', result)
 
 fig, ax = plt.subplots(1, 3, figsize=(10, 5))
 
 ax[0].plot(img_cal, color='r')
-ax[1].plot(hist_cal, color='b') 
+ax[1].plot(hist_cal, color='b') # 칼라 이미지일 경우 주석 처리
 ax[2].plot(result_cal, color='g') 
 plt.show()
 
